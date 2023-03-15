@@ -23,7 +23,7 @@ defineFunction(main, void)
 	Date_GetCurrentDate_DMY(Day, Month, Year);
 	
 	//RunYearlyReport();
-	MonthlyCheck();
+	MonthlyCheck(Day, Month, Year);
 	
 	
 	// check start date
@@ -36,7 +36,8 @@ defineFunction(main, void)
 		
 		_immigrantsSoviet = _thisYearStatRecord.Citizens_ImigrantSoviet;
 		_immigrantsAfrica = _thisYearStatRecord.Citizens_ImigrantAfrica;
-		_immigrantsScore = Citizens_ImigrantSoviet * 3 + Citizens_ImigrantAfrica;
+		_immigrantsScore = _immigrantsSoviet * 3;
+		_immigrantsScore = _immigrantsScore + _immigrantsAfrica;
 		
 		if(_immigrantsScore > 360)
 		{
@@ -48,7 +49,7 @@ defineFunction(main, void)
 				_isImigrationBlocked = 1;
 				Window_ShowText("Immigration limit for this year exceeded");
 			}
-			else
+			else()
 			{
 				if(_immigrantsScore > 1500)
 				{
@@ -63,7 +64,7 @@ defineFunction(main, void)
 	}
 	
 	// reset imigration at the start of the new year
-	if(Month ? 1 & Day = 1)
+	if(Month ? 1 & Day ? 1)
 	{
 		Permissions_ImmigrantAllowPurchaseUSD(1, 1.0);
 		Permissions_ImmigrantAllowPurchaseRUB(1, 1.0);

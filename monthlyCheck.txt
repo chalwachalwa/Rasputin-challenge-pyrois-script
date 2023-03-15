@@ -1,23 +1,91 @@
+defineVariable(int, _MonthlyCheck_lastMonth);
+defineVariable(int, _MonthlyCheck_lastMonthYear);
+defineVariable(StatRecord, _MonthlyCheck_statRecord);
 
+defineVariable(int, _MonthlyCheck_buildings);
+defineVariable(int, i);
+defineVariable(Building, _building);
 
-
-
-defineFunction(MonthlyCheck, void)
+defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 {
 	// first day of each month 
-	if(Day ? 1)
+	if(day ? 1)
 	{
 		// if this is 12 month
-		if(Month ? 12)
+		if(month ? 1)
 		{
-		
+			_MonthlyCheck_lastMonth = 12;
+			_MonthlyCheck_lastMonthYear = year - 1;
 		}
-	
+		else()
+		{
+			_MonthlyCheck_lastMonth = month - 1;
+			_MonthlyCheck_lastMonthYear = year;
+		}
+		
+		_MonthlyCheck_statRecord.GetFromPresentToDate_DMY(1,_MonthlyCheck_lastMonth,_MonthlyCheck_lastMonthYear);
 	
 		// check industry
+		// don't bother with checks for money negative industries
+		
+		
+		// check if resource was exported?
+		// check if factory for it was build?
+		// check if subfactories was build?
+		
+		
+		
+		Building_GetNumberOfBuildings(_MonthlyCheck_buildings);
+		
+		for (i=0, i<_MonthlyCheck_buildings, i=i+1)
+		{
+			_building.GetDataByIndex(i);
+			if(_building.nType = BUILDINGTYPE_FACTORY)
+			{
+			
+			}
+			// BUILDINGTYPE_FACTORY
+			// BUILDINGTYPE_PRODUCTION_LINE
+			
+			
+		}
+		
+		
+		// steel
+		// mech comp
+		// alumina
+		// aluminium
+		// brick
+		// uranium oxide
+		// uf6
+		// nuclear fuel
+		// cement 
+		// fuel bitumen
+		// prefab
+		// chemical
+		// plastic
+		// electric parts
+		// electronics
+		// fabric
+		// clothes
+		// livestock
+		// slaughter
+		// food
+		// alcohol
+		// vehicle / rail / ship / airship
+		
+		
+		//check for prefab import
+		
 		
 		// check tourism
-		
+		if(year < 1992)
+		{
+			if(_MonthlyCheck_statRecord.Tourism_ToursitEnteredUSD + _MonthlyCheck_statRecord.Tourism_ToursitEnteredRUB > 0)
+			{
+				Window_ShowText("No tourists allowed, you failed");
+			}
+		}
 	}
 
 	returnVoid();

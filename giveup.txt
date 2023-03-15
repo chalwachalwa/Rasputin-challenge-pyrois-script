@@ -1,0 +1,15 @@
+include("include/SOVIETInstructions.txt");
+
+defineFunction(main, void)
+{
+	Permissions_ImmigrantAllowPurchaseUSD(0, 1.0);
+	Permissions_ImmigrantAllowPurchaseRUB(0, 1.0);
+	Permissions_VehicleAllowPurchaseUSD(1, 1, 1, 1, 1);
+	Permissions_VehicleAllowPurchaseRUB(1, 1, 1, 1, 1);
+	Permissions_ResourcesAllowPurchaseRUB(1, 1, 1.0);
+	Permissions_ResourcesAllowSellRUB(1, 1, 1);
+	
+	Window_ShowText("hahaha");
+	
+	end();
+}
