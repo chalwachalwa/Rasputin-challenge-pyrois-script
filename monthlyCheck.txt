@@ -6,6 +6,9 @@ defineVariable(int, _MonthlyCheck_buildings);
 defineVariable(int, i);
 defineVariable(Building, _building);
 
+defineVariable(Resources, _imported_RUB);
+defineVariable(Resources, _imported_USD);
+
 defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 {
 	// first day of each month 
@@ -25,58 +28,14 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 		
 		_MonthlyCheck_statRecord.GetFromPresentToDate_DMY(1,_MonthlyCheck_lastMonth,_MonthlyCheck_lastMonthYear);
 	
-		// check industry
-		// don't bother with checks for money negative industries
-		
-		
-		// check if resource was exported?
-		// check if factory for it was build?
-		// check if subfactories was build?
-		
-		
-		
-		Building_GetNumberOfBuildings(_MonthlyCheck_buildings);
-		
-		for (i=0, i<_MonthlyCheck_buildings, i=i+1)
-		{
-			_building.GetDataByIndex(i);
-			if(_building.nType = BUILDINGTYPE_FACTORY)
-			{
-			
-			}
-			// BUILDINGTYPE_FACTORY
-			// BUILDINGTYPE_PRODUCTION_LINE
-			
-			
-		}
-		
-		
-		// steel
-		// mech comp
-		// alumina
-		// aluminium
-		// brick
-		// uranium oxide
-		// uf6
-		// nuclear fuel
-		// cement 
-		// fuel bitumen
-		// prefab
-		// chemical
-		// plastic
-		// electric parts
-		// electronics
-		// fabric
-		// clothes
-		// livestock
-		// slaughter
-		// food
-		// alcohol
-		// vehicle / rail / ship / airship
-		
-		
 		//check for prefab import
+		_imported_RUB = _MonthlyCheck_statRecord.ImportTonsRUB;
+		_imported_USD = _MonthlyCheck_statRecord.ImportTonsUSD;
 		
+		if(_imported_RUB.prefabpanels + _imported_USD.prefabpanels > 0)
+		{
+			Window_ShowText("No prefab panels import allowed, you failed");
+		}
 		
 		// check tourism
 		if(year < 1992)
