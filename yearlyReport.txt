@@ -1,15 +1,18 @@
-defineVariable(int, _day);
-defineVariable(int, _month);
-defineVariable(int, _year);
+//defineVariable(int, _YearlyReport_day);
+//defineVariable(int, _YearlyReport_month);
+//defineVariable(int, _YearlyReport_year);
+
 defineVariable(float, _aluminium);
 defineVariable(StatRecord, _statRecord);
 
-defineFunction(RunYearlyReport, void){
+defineFunction(RunYearlyReport, void)
+{
 	
+	//todo: debug 1
 	//if(_month ? 1 &_day ? 1){
-	if(1)
+	if(1 ? 1)
 	{
-		Date_GetCurrentDate_DMY(_day, _month, _year);
+		//Date_GetCurrentDate_DMY(_YearlyReport_day, _YearlyReport_month, _YearlyReport_year);
 		_statRecord.GetFromPresentToDate_DMY(1,1,1960);
 		_aluminium = _statRecord.ExportTonsRUB.aluminium;
 	

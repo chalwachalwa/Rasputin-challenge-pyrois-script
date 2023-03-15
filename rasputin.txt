@@ -1,46 +1,84 @@
 include("include/SOVIETInstructions.txt");
 include("yearlyReport.txt");
+include("monthlyCheck.txt");
+
 defineVariable(StatRecord, _thisYearStatRecord);
-defineVariable(int, _immigrants);
+
+defineVariable(int, _immigrantsSoviet);
+defineVariable(int, _immigrantsAfrica);
+defineVariable(int, _immigrantsScore);
+
+defineVariable(int, Day);
+defineVariable(int, Month);
+defineVariable(int, Year);
+
+defineVariable(char, _isImigrationBlocked);
 
 defineFunction(main, void)
 {
+	_isImigrationBlocked = 0;
+	
 	InitConstants();
-	RunYearlyReport();
-	//RunMonthlyCheck();
 	
-	Date_GetCurrentDate_DMY(_day, _month, _year);
-	_statRecord.GetFromPresentToDate_DMY(1,1,_year);
+	Date_GetCurrentDate_DMY(Day, Month, Year);
 	
-	_immigrants = _statRecord.Citizens_ImigrantSoviet + _statRecord.Citizens_ImigrantAfrica
+	//RunYearlyReport();
+	MonthlyCheck();
+	
+	
+	// check start date
+	
 	//block imigration
-	if(_immigrants > 100)
+	if(! _isImigrationBlocked)
 	{
-		Window_ShowText("Imigration allert");
-	
+		// get imigration stats
+		_thisYearStatRecord.GetFromPresentToDate_DMY(1,1,Year);
+		
+		_immigrantsSoviet = _thisYearStatRecord.Citizens_ImigrantSoviet;
+		_immigrantsAfrica = _thisYearStatRecord.Citizens_ImigrantAfrica;
+		_immigrantsScore = Citizens_ImigrantSoviet * 3 + Citizens_ImigrantAfrica;
+		
+		if(_immigrantsScore > 360)
+		{
+			if(Year > 1960)
+			{
+				Window_ShowText("Imigration allert");
+				Permissions_ImmigrantAllowPurchaseUSD(0, 1.0);
+				Permissions_ImmigrantAllowPurchaseRUB(0, 1.0);
+				_isImigrationBlocked = 1;
+				Window_ShowText("Immigration limit for this year exceeded");
+			}
+			else
+			{
+				if(_immigrantsScore > 1500)
+				{
+					Window_ShowText("Imigration allert");
+					Permissions_ImmigrantAllowPurchaseUSD(0, 1.0);
+					Permissions_ImmigrantAllowPurchaseRUB(0, 1.0);
+					_isImigrationBlocked = 1;
+					Window_ShowText("Immigration limit for this year exceeded");
+				}
+			}		
+		}
 	}
 	
+	// reset imigration at the start of the new year
+	if(Month ? 1 & Day = 1)
+	{
+		Permissions_ImmigrantAllowPurchaseUSD(1, 1.0);
+		Permissions_ImmigrantAllowPurchaseRUB(1, 1.0);
+		_isImigrationBlocked = 0;
+		Window_ShowText("Immigration limit reset");
+	}
 	
-	//if(_year ? 1960 & _month ? 12 & _day = 31){
-	
-	//todo: get imigrants if higher than limit then close border
-	// open border with new year
-	
-	//  Citizens_ImigrantSoviet
-	
-	//}
-	
-	
-	
-	if(_year ? 1991 & _month ? 12 & _day = 26)
+	// Close borders after sovier union collapse
+	if(Year ? 1991 & Month ? 12 & Day = 26)
 	{
 		Permissions_VehicleAllowPurchaseUSD(0, 0, 0, 0, 0);
 		Permissions_VehicleAllowPurchaseRUB(0, 0, 0, 0, 0);
 		Permissions_ResourcesAllowPurchaseRUB(0, 0, 1.0);
 		Permissions_ResourcesAllowSellRUB(0, 0, 0);
 	}
-	// if 12.1991 - close border with soviets 
-	// ban vehicles
 	
 	// verify if chains are setup for export
 	// verify tourists

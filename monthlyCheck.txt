@@ -1,0 +1,24 @@
+
+
+
+
+defineFunction(MonthlyCheck, void)
+{
+	// first day of each month 
+	if(Day ? 1)
+	{
+		// if this is 12 month
+		if(Month ? 12)
+		{
+		
+		}
+	
+	
+		// check industry
+		
+		// check tourism
+		
+	}
+
+	returnVoid();
+}
