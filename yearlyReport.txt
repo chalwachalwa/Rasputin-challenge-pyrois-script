@@ -1,0 +1,75 @@
+defineVariable(int, _day);
+defineVariable(int, _month);
+defineVariable(int, _year);
+defineVariable(float, _aluminium);
+defineVariable(StatRecord, _statRecord);
+
+defineFunction(RunYearlyReport, void){
+	
+	//if(_month ? 1 &_day ? 1){
+	if(1)
+	{
+		Date_GetCurrentDate_DMY(_day, _month, _year);
+		_statRecord.GetFromPresentToDate_DMY(1,1,1960);
+		_aluminium = _statRecord.ExportTonsRUB.aluminium;
+	
+		Objectives_CreateNewString("nuclear", "Nuclear");
+		Objective_AddRequirement("nuclear", 100.0, "resources/nuclearfuelburned.png");
+		Objective_AddRequirement("nuclear", 500.0, "resources/nuclearfuel.png");
+		Objective_AddRequirement("nuclear", 500.0, "resources/uf6.png");
+		Objective_AddRequirement("nuclear", 5000.0, "resources/yellowcake.png");
+		Objective_AddRequirement("nuclear", 5000.0, "resources/uranium.png");
+
+		Objectives_CreateNewString("metalurgy", "Metalurgy");
+		Objective_AddRequirement("metalurgy", 100000.0, "resources/aluminium.png");
+		Objective_AddRequirement("metalurgy", 50000.0, "resources/bauxite.png");
+		Objective_AddRequirement("metalurgy", 5000.0, "resources/alumina.png");
+		Objective_AddRequirement("metalurgy", 25000.0, "resources/aluminium.png");
+		Objective_AddRequirement("metalurgy", 100000.0, "resources/rawiron.png");
+		Objective_AddRequirement("metalurgy", 100000.0, "resources/iron.png");
+		Objective_AddRequirement("metalurgy", 100000.0, "resources/steel.png");
+
+		Objective_UpdateRequirement("metalurgy", 0, _aluminium);
+		//todo: update all resources
+
+
+		//CLOTHES    5000
+		//ELEC COMPONENTS    10000
+		//ELECTRONICS    10000
+		//FABRIC    10000
+		//MECH COMPONENTS    10000
+		//
+		//COAL ORE    100000
+		//COAL    50000
+		//POWER    1000000
+		//
+		////Petrochem
+		//CHEMICALS    10000
+		//BITUMEN    25000
+		//FUEL    25000
+		//PLASTICS    25000
+		//OIL    50000
+		//
+		//ALCOHOL    25000
+		//FOOD    25000
+		//MEAT    25000
+		//LIVESTOCK    50000
+		//
+		//CROPS    100000
+		//CEMENT    25000
+		//GRAVEL    50000
+		//BOARDS    100000
+		//BRICKS    100000
+		//PREFAB PANELS    100000
+		//QUARRIED STONE    100000
+		//WOOD    100000
+
+
+		//Window_ShowText("Yearly report");
+		
+		Script_Sleep(2.0);
+		Objectives_ClearAll();
+	}
+
+	returnVoid();
+}

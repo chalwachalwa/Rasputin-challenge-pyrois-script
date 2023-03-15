@@ -1,0 +1,49 @@
+include("include/SOVIETInstructions.txt");
+include("yearlyReport.txt");
+defineVariable(StatRecord, _thisYearStatRecord);
+defineVariable(int, _immigrants);
+
+defineFunction(main, void)
+{
+	InitConstants();
+	RunYearlyReport();
+	//RunMonthlyCheck();
+	
+	Date_GetCurrentDate_DMY(_day, _month, _year);
+	_statRecord.GetFromPresentToDate_DMY(1,1,_year);
+	
+	_immigrants = _statRecord.Citizens_ImigrantSoviet + _statRecord.Citizens_ImigrantAfrica
+	//block imigration
+	if(_immigrants > 100)
+	{
+		Window_ShowText("Imigration allert");
+	
+	}
+	
+	
+	//if(_year ? 1960 & _month ? 12 & _day = 31){
+	
+	//todo: get imigrants if higher than limit then close border
+	// open border with new year
+	
+	//  Citizens_ImigrantSoviet
+	
+	//}
+	
+	
+	
+	if(_year ? 1991 & _month ? 12 & _day = 26)
+	{
+		Permissions_VehicleAllowPurchaseUSD(0, 0, 0, 0, 0);
+		Permissions_VehicleAllowPurchaseRUB(0, 0, 0, 0, 0);
+		Permissions_ResourcesAllowPurchaseRUB(0, 0, 1.0);
+		Permissions_ResourcesAllowSellRUB(0, 0, 0);
+	}
+	// if 12.1991 - close border with soviets 
+	// ban vehicles
+	
+	// verify if chains are setup for export
+	// verify tourists
+
+	end();
+}
