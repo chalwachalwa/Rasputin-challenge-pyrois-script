@@ -16,9 +16,13 @@ defineVariable(int, j);
 defineVariable(Resources, _tons_RUB);
 defineVariable(Resources, _tons_USD);
 defineVariable(Resources, _tonsProduced);
+defineVariable(vec3, _vector);
 
 defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 {
+		_vector.x = 0;
+		_vector.y = 0;
+		_vector.z = 0;
 	// first day of each month 
 	_checkVehicles = 1;
 	
@@ -33,7 +37,13 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 		{
 			if(_MonthlyCheck_statRecord.Tourism_ToursitEnteredUSD + _MonthlyCheck_statRecord.Tourism_ToursitEnteredRUB > 0)
 			{
+			
 				Window_ShowText("No tourists allowed, you failed");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -67,6 +77,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.coal ? 0 | _tonsProduced.iron ? 0) 
 			{
 				Window_ShowText("Cannot export steel without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -76,6 +91,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.steel ? 0) 
 			{
 				Window_ShowText("Cannot export mechanical components without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -85,6 +105,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.chemicals ? 0 | _tonsProduced.coal ? 0 | _tonsProduced.bauxite ? 0) 
 			{
 				Window_ShowText("Cannot export alumina without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -94,6 +119,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.chemicals ? 0 | _tonsProduced.alumina ? 0) 
 			{
 				Window_ShowText("Cannot export aluminium without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -103,6 +133,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.uranium ? 0) 
 			{
 				Window_ShowText("Cannot export uranium oxide without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -112,6 +147,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.yellowcake ? 0 | _tonsProduced.chemicals ? 0) 
 			{
 				Window_ShowText("Cannot export uranium fluoride without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -121,6 +161,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.uf6 ? 0 | _tonsProduced.chemicals ? 0) 
 			{
 				Window_ShowText("Cannot export nuclear fuel without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -130,6 +175,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.gravel ? 0 | _tonsProduced.coal ? 0) 
 			{
 				Window_ShowText("Cannot export cement without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -139,6 +189,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.oil ? 0) 
 			{
 				Window_ShowText("Cannot export fuel and bitumen  without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -148,6 +203,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.gravel ? 0 | _tonsProduced.wood ? 0 | _tonsProduced.oil ? 0 | _tonsProduced.plants ? 0) 
 			{
 				Window_ShowText("Cannot export chemical  without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -157,6 +217,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.chemicals ? 0 | _tonsProduced.oil ? 0) 
 			{
 				Window_ShowText("Cannot export plastic without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -166,6 +231,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.chemicals ? 0 | _tonsProduced.steel ? 0 | _tonsProduced.plastics ? 0) 
 			{
 				Window_ShowText("Cannot export electric components without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -175,6 +245,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.ecomponents ? 0 | _tonsProduced.mcomponents ? 0 | _tonsProduced.plastics ? 0) 
 			{
 				Window_ShowText("Cannot export electric components without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -184,6 +259,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.plants ? 0 | _tonsProduced.chemicals ? 0) 
 			{
 				Window_ShowText("Cannot export fabric without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -193,6 +273,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.fabric ? 0) 
 			{
 				Window_ShowText("Cannot export clothes self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -202,6 +287,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.plants ? 0) 
 			{
 				Window_ShowText("Cannot export livestock without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -211,6 +301,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.livestock ? 0) 
 			{
 				Window_ShowText("Cannot export meat without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -220,6 +315,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.plants ? 0) 
 			{
 				Window_ShowText("Cannot export livestock without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}
@@ -229,6 +329,11 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 			if(_tonsProduced.plants ? 0) 
 			{
 				Window_ShowText("Cannot export alcohol without self producted ingredients");
+				Notification_CreateNewStringPic(
+				"You failed",
+				"You broke the rules. Shame on you.",
+				"images/fail.png",
+				_vector);
 				returnVoid();
 			}
 		}

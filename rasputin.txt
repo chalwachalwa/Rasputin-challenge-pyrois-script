@@ -2,6 +2,7 @@ include("include/SOVIETInstructions.txt");
 include("yearlyReport.txt");
 include("monthlyCheck.txt");
 
+defineVariable(vec3, vector);
 defineVariable(StatRecord, _thisYearStatRecord);
 
 defineVariable(int, _immigrantsSoviet);
@@ -22,8 +23,8 @@ defineFunction(main, void)
 	
 	Date_GetCurrentDate_DMY(Day, Month, Year);
 	
-	//RunYearlyReport();
-	MonthlyCheck(Day, Month, Year);
+	RunYearlyReport();
+	//MonthlyCheck(Day, Month, Year);
 	
 	Permissions_ResourcesAllowSellUSD(1, 1, 0);
 	Permissions_ResourcesAllowSellRUB(1, 1, 0);
@@ -74,9 +75,24 @@ defineFunction(main, void)
 		Window_ShowText("Immigration limit reset");
 	}
 	
+	if(Year ? 1991 & Month ? 2 & Day = 1)
+	{
+		Window_ShowText("Soviet union is about to collapse. Buy missing blueprints and change your export routes!");
+	}
+	
 	// Close borders after sovier union collapse
 	if(Year ? 1991 & Month ? 12 & Day = 26)
 	{
+		vector.x = 0;
+		vector.y = 0;
+		vector.z = 0;
+		Notification_CreateNewStringPic(
+		"Soviet union collapse!",
+		"Who do we sell uranium to now?",
+		"images/sovietcollapse.png",
+		vector);
+		Window_ShowText("Soviet borders closed. You can no longer buy vehicles. You can invite tourists. Starting from 1992.");
+	
 		Permissions_VehicleAllowPurchaseUSD(0, 0, 0, 0, 0);
 		Permissions_VehicleAllowPurchaseRUB(0, 0, 0, 0, 0);
 		Permissions_ResourcesAllowPurchaseRUB(0, 0, 1.0);
