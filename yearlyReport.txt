@@ -7,7 +7,7 @@ defineVariable(StatRecord, _statRecord);
 
 defineFunction(RunYearlyReport, void)
 {
-	
+	InitConstants();
 	//todo: debug 1
 	//if(_month ? 1 &_day ? 1){
 	if(1 ? 1)
@@ -69,6 +69,15 @@ defineFunction(RunYearlyReport, void)
 
 
 		//Window_ShowText("Yearly report");
+		
+		
+		// update goals 
+		
+		// win condition
+		
+		
+		
+		
 		
 		Script_Sleep(2.0);
 		Objectives_ClearAll();

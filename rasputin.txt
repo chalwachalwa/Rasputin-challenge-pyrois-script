@@ -25,6 +25,8 @@ defineFunction(main, void)
 	//RunYearlyReport();
 	MonthlyCheck(Day, Month, Year);
 	
+	Permissions_ResourcesAllowSellUSD(1, 1, 0);
+	Permissions_ResourcesAllowSellRUB(1, 1, 0);
 	
 	// check start date
 	
@@ -81,8 +83,5 @@ defineFunction(main, void)
 		Permissions_ResourcesAllowSellRUB(0, 0, 0);
 	}
 	
-	// verify if chains are setup for export
-	// verify tourists
-
 	end();
 }

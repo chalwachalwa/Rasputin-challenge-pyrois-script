@@ -1,50 +1,290 @@
-defineVariable(int, _MonthlyCheck_lastMonth);
-defineVariable(int, _MonthlyCheck_lastMonthYear);
+//defineVariable(int, _MonthlyCheck_lastMonth);
+//defineVariable(int, _MonthlyCheck_lastMonthYear);
 defineVariable(StatRecord, _MonthlyCheck_statRecord);
 
 defineVariable(int, _MonthlyCheck_buildings);
-defineVariable(int, i);
-defineVariable(Building, _building);
+defineVariable(char, _checkVehicles);
 
-defineVariable(Resources, _imported_RUB);
-defineVariable(Resources, _imported_USD);
+defineVariable(int, _numberOfVehicles);
+defineVariable(Vehicle, _vehicle);
+defineVariable(int, i);
+
+defineVariable(int, _numberOfBuildings);
+defineVariable(Building, _building);
+defineVariable(int, j);
+
+defineVariable(Resources, _tons_RUB);
+defineVariable(Resources, _tons_USD);
+defineVariable(Resources, _tonsProduced);
 
 defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 {
 	// first day of each month 
-	if(day ? 1)
-	{
-		// if this is 12 month
-		if(month ? 1)
-		{
-			_MonthlyCheck_lastMonth = 12;
-			_MonthlyCheck_lastMonthYear = year - 1;
-		}
-		else()
-		{
-			_MonthlyCheck_lastMonth = month - 1;
-			_MonthlyCheck_lastMonthYear = year;
-		}
-		
-		_MonthlyCheck_statRecord.GetFromPresentToDate_DMY(1,_MonthlyCheck_lastMonth,_MonthlyCheck_lastMonthYear);
+	_checkVehicles = 1;
 	
-		//check for prefab import
-		_imported_RUB = _MonthlyCheck_statRecord.ImportTonsRUB;
-		_imported_USD = _MonthlyCheck_statRecord.ImportTonsUSD;
+	if(day ? 1)
+	{		
+		_MonthlyCheck_statRecord.GetFromPresentToDate_DMY(1,1,1960);
 		
-		if(_imported_RUB.prefabpanels + _imported_USD.prefabpanels > 0)
-		{
-			Window_ShowText("No prefab panels import allowed, you failed");
-		}
+		// CHECK TOURISM
+		// ===================================================================
 		
-		// check tourism
 		if(year < 1992)
 		{
 			if(_MonthlyCheck_statRecord.Tourism_ToursitEnteredUSD + _MonthlyCheck_statRecord.Tourism_ToursitEnteredRUB > 0)
 			{
 				Window_ShowText("No tourists allowed, you failed");
+				returnVoid();
 			}
 		}
+		
+		//CHECK FOR PREFAB IMPORT
+		// ===================================================================
+		
+		_tons_RUB = _MonthlyCheck_statRecord.ImportTonsRUB;
+		_tons_USD = _MonthlyCheck_statRecord.ImportTonsUSD;
+		
+		if(_tons_RUB.prefabpanels + _tons_USD.prefabpanels > 0)
+		{
+			// debug
+			//Window_ShowText("No prefab panels import allowed, you failed");
+			//returnVoid();
+		}
+		
+		// CHECK INDUSTRY CHAINS
+		// ===================================================================
+		// don't bother with checks for weak money industries
+		
+		_tonsProduced = _MonthlyCheck_statRecord.ResourcesProduced;
+		_tons_RUB = _MonthlyCheck_statRecord.ExportTonsRUB;
+		_tons_USD = _MonthlyCheck_statRecord.ExportTonsUSD;
+		
+		// steel
+		// check if resource was exported?
+		if(_tons_RUB.steel + _tons_USD.steel > 0) 
+		{
+		    // check if inputs were ever produced?	
+			if(_tonsProduced.coal ? 0 | _tonsProduced.iron ? 0) 
+			{
+				Window_ShowText("Cannot export steel without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// mech comp
+		if(_tons_RUB.mcomponents + _tons_USD.mcomponents > 0) 
+		{
+			if(_tonsProduced.steel ? 0) 
+			{
+				Window_ShowText("Cannot export mechanical components without self producted ingredients");
+				returnVoid();
+			}
+		}
+		//alumina
+		if(_tons_RUB.alumina + _tons_USD.alumina > 0) 
+		{
+			if(_tonsProduced.chemicals ? 0 | _tonsProduced.coal ? 0 | _tonsProduced.bauxite ? 0) 
+			{
+				Window_ShowText("Cannot export alumina without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// aluminium
+		if(_tons_RUB.aluminium + _tons_USD.aluminium > 0) 
+		{
+			if(_tonsProduced.chemicals ? 0 | _tonsProduced.alumina ? 0) 
+			{
+				Window_ShowText("Cannot export aluminium without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// uranium oxide
+		if(_tons_RUB.yellowcake + _tons_USD.yellowcake > 0) 
+		{
+			if(_tonsProduced.uranium ? 0) 
+			{
+				Window_ShowText("Cannot export uranium oxide without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// uf6
+		if(_tons_RUB.uf6 + _tons_USD.uf6 > 0) 
+		{
+			if(_tonsProduced.yellowcake ? 0 | _tonsProduced.chemicals ? 0) 
+			{
+				Window_ShowText("Cannot export uranium fluoride without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// nuclear fuel
+		if(_tons_RUB.nuclearfuel + _tons_USD.nuclearfuel > 0) 
+		{
+			if(_tonsProduced.uf6 ? 0 | _tonsProduced.chemicals ? 0) 
+			{
+				Window_ShowText("Cannot export nuclear fuel without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// cement 
+		if(_tons_RUB.cement + _tons_USD.cement > 0) 
+		{
+			if(_tonsProduced.gravel ? 0 | _tonsProduced.coal ? 0) 
+			{
+				Window_ShowText("Cannot export cement without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// fuel bitumen
+		if(_tons_RUB.bitumen + _tons_USD.bitumen + _tons_RUB.fuel + _tons_RUB.fuel > 0) 
+		{
+			if(_tonsProduced.oil ? 0) 
+			{
+				Window_ShowText("Cannot export fuel and bitumen  without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// chemical
+		if(_tons_RUB.chemicals + _tons_USD.chemicals > 0) 
+		{
+			if(_tonsProduced.gravel ? 0 | _tonsProduced.wood ? 0 | _tonsProduced.oil ? 0 | _tonsProduced.plants ? 0) 
+			{
+				Window_ShowText("Cannot export chemical  without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// plastic
+		if(_tons_RUB.plastics + _tons_USD.plastics > 0) 
+		{
+			if(_tonsProduced.chemicals ? 0 | _tonsProduced.oil ? 0) 
+			{
+				Window_ShowText("Cannot export plastic without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// electric parts
+		if(_tons_RUB.ecomponents + _tons_USD.ecomponents > 0) 
+		{
+			if(_tonsProduced.chemicals ? 0 | _tonsProduced.steel ? 0 | _tonsProduced.plastics ? 0) 
+			{
+				Window_ShowText("Cannot export electric components without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// electrics
+		if(_tons_RUB.eletronics + _tons_USD.eletronics > 0) 
+		{
+			if(_tonsProduced.ecomponents ? 0 | _tonsProduced.mcomponents ? 0 | _tonsProduced.plastics ? 0) 
+			{
+				Window_ShowText("Cannot export electric components without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// fabric
+		if(_tons_RUB.fabric + _tons_USD.fabric > 0) 
+		{
+			if(_tonsProduced.plants ? 0 | _tonsProduced.chemicals ? 0) 
+			{
+				Window_ShowText("Cannot export fabric without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// clothes
+		if(_tons_RUB.clothes + _tons_USD.clothes > 0) 
+		{
+			if(_tonsProduced.fabric ? 0) 
+			{
+				Window_ShowText("Cannot export clothes self producted ingredients");
+				returnVoid();
+			}
+		}
+		// livestock
+		if(_tons_RUB.livestock + _tons_USD.livestock > 0) 
+		{
+			if(_tonsProduced.plants ? 0) 
+			{
+				Window_ShowText("Cannot export livestock without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// slaughter
+		if(_tons_RUB.meat + _tons_USD.meat > 0) 
+		{
+			if(_tonsProduced.livestock ? 0) 
+			{
+				Window_ShowText("Cannot export meat without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// food
+		if(_tons_RUB.food + _tons_USD.food > 0) 
+		{
+			if(_tonsProduced.plants ? 0) 
+			{
+				Window_ShowText("Cannot export livestock without self producted ingredients");
+				returnVoid();
+			}
+		}
+		// alcohol
+		if(_tons_RUB.alcohol + _tons_USD.alcohol > 0) 
+		{
+			if(_tonsProduced.plants ? 0) 
+			{
+				Window_ShowText("Cannot export alcohol without self producted ingredients");
+				returnVoid();
+			}
+		}
+		//todo: broken Vehicles_ExportUSD
+		
+		// vehicle / rail / ship / airship
+		//if( _MonthlyCheck_statRecord.Vehicles_ExportUSD + _MonthlyCheck_statRecord.Vehicles_ExportUSD > 0.0)
+		//{
+		//	if(_tonsProduced.steel ? 0 | _tonsProduced.fabric ? 0 | _tonsProduced.plastics ? 0 | _tonsProduced.ecomponents ? 0 | _tonsProduced.mcomponents ? 0) 
+		//	{
+		//		Window_ShowText("Cannot export vehicles without self producted ingredients");
+		//		returnVoid();
+		//	}
+		//}
+		
+		// CHECK TRAINS
+		// ===================================================================
+		
+		// todo: fType_EnginePower and nSkill comparing broken
+		//if(_checkVehicles ? 1)
+		//{
+		//	// Check if player have trains factory
+		//	//Building_GetNumberOfBuildings(_numberOfBuildings);
+		//	//
+		//	//for (j = 0, j < _numberOfBuildings, j = j + 1)
+		//	//{
+		//	//	_building.GetDataByIndex(j);
+		//	//
+		//	//	if(_building.nType ? BUILDINGTYPE_PRODUCTION_LINE & _building.nSubType ? BUILDINGSUBTYPE_RAIL)
+		//	//	{
+		//	//		Window_ShowText("First trains factory build, good job. Now buy some licences.");
+		//	//		_checkVehicles = 0;
+		//	//	}
+		//	//}
+		//	
+		//	Vehicle_GetNumberOfVehicles(_numberOfVehicles);   
+		//	for (i = 0, i < _numberOfVehicles, i = i + 1)
+		//	{
+		//		_vehicle.GetDataByIndex(i);
+		//		
+		//		// Check locomotives 
+		//		
+		//		if(_vehicle.nVehicleType ? VEHICLETYPE_RAIL_LOCOMOTIVE & _vehicle.fType_EnginePower > 1.0)
+		//		{
+		//			Window_ShowText("Cannot import locomotives with power greater than 1000kW ");
+		//			returnVoid();
+		//		}
+		//		// Check track layers
+		//		if(_vehicle.nVehicleType ? VEHICLETYPE_RAIL_SERVICE & _vehicle.nSkill > 17 )
+		//		{
+		//			Window_ShowText("Cannot import locomotives with power greater than 1000kW ");
+		//			returnVoid();
+		//		}
+		//	}
+		//}
+
 	}
 
 	returnVoid();
