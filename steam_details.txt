@@ -1,5 +1,7 @@
 Link to official Rasputin challenge:
 https://steamcommunity.com/sharedfiles/filedetails/?id=2494858865
+If you would like to contribute check here:
+https://github.com/chalwachalwa/Rasputin-challenge-pyrois-script
 
 Huge thanks to THECCC, BumbaCLot, Renfield and all discord members for idea and cataloging rules.
 
@@ -9,7 +11,7 @@ Illy - 2020
 Shugo - 2015 with loan - first to finish
 
 
-Version 1.0
+Version 1.0.1
 Rules (game version 0.8.8.20):
 Please keep in mind that scripts are experimental feature with no support from devs yet.
 
@@ -39,6 +41,7 @@ Gentelman's rules: (not able yet to force with script)
 
 How to use this scripts?
 Use script menu from left bar.
+- DO NOT LOAD save game from game view. To load save close game to desktop and then load. There is some nasty bug causing script running twice. If you see constant number of running scripts more than 1 then your save is broken.
 - Start script starts challenge.
 - Give up resets all limits.
 - Show objectives
