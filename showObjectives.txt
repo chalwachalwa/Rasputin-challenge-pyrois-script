@@ -1,0 +1,10 @@
+include("include/SOVIETInstructions.txt");
+include("yearlyReport.txt");
+
+defineVariable(vec3, _vector);
+
+defineFunction(main, void)
+{
+	RunYearlyReport();
+	end();
+}
