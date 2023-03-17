@@ -56,7 +56,6 @@ defineFunction(MonthlyCheck, void, int: day, int: month, int: year)
 		
 		if(_tons_RUB.prefabpanels + _tons_USD.prefabpanels > 0)
 		{
-			// debug
 			//Window_ShowText("No prefab panels import allowed, you failed");
 			//returnVoid();
 		}

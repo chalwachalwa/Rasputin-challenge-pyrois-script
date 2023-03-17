@@ -1,4 +1,4 @@
-defineArray(char[34], success);
+defineArray(char[37], success);
 defineArray(char[8], completed);
 
 defineVariable(StatRecord, _statRecord);
@@ -39,6 +39,7 @@ defineFunction(RunYearlyReport, void)
 	Objective_AddRequirement("petrochemical", 25000.0, "resources/bitumen.png");
 	Objective_AddRequirement("petrochemical", 50000.0, "resources/oil.png");
 	Objective_AddRequirement("petrochemical", 25000.0, "resources/fuel.png");
+	Objective_AddRequirement("petrochemical", 25000.0, "resources/plastics.png");
 	
 	Objectives_CreateNewString("energy", "Energy");
 	Objective_AddRequirement("energy", 100000.0, "resources/rawcoal.png");
@@ -88,6 +89,7 @@ defineFunction(RunYearlyReport, void)
 	Objective_UpdateRequirement("petrochemical", 1, _statRecord.ExportTonsRUB.bitumen + _statRecord.ExportTonsUSD.bitumen);
 	Objective_UpdateRequirement("petrochemical", 2, _statRecord.ExportTonsRUB.oil + _statRecord.ExportTonsUSD.oil);
 	Objective_UpdateRequirement("petrochemical", 3, _statRecord.ExportTonsRUB.fuel + _statRecord.ExportTonsUSD.fuel);
+	Objective_UpdateRequirement("petrochemical", 4, _statRecord.ExportTonsRUB.plastics + _statRecord.ExportTonsUSD.plastics);
 	
 	Objective_UpdateRequirement("energy", 0, _statRecord.ExportTonsRUB.rawcoal + _statRecord.ExportTonsUSD.rawcoal);
 	Objective_UpdateRequirement("energy", 1, _statRecord.ExportTonsRUB.coal + _statRecord.ExportTonsUSD.coal);
@@ -241,28 +243,34 @@ defineFunction(RunYearlyReport, void)
 		Objective_UpdateRequirementToTarget("petrochemical", 3);
 		success[20] = 1;
 	}
-	if(success[17] + success[18] + success[19] + success[20] ? 4)
+	if(_statRecord.ExportTonsRUB.plastics + _statRecord.ExportTonsUSD.plastics > 25000.0)
+	{
+		Objective_UpdateRequirementToTarget("petrochemical", 4);
+		success[21] = 1;
+	}
+	if(success[17] + success[18] + success[19] + success[20] + success[21] ? 5)
 	{
 		Objective_SetComplete("petrochemical");
 		completed[4] = 1;
 	}
+	//plastics
 	//energy
 	if( _statRecord.ExportTonsRUB.rawcoal + _statRecord.ExportTonsUSD.rawcoal > 100000.0)
 	{
 		Objective_UpdateRequirementToTarget("energy", 0);
-		success[21] = 1;
+		success[22] = 1;
 	}
 	if(_statRecord.ExportTonsRUB.coal + _statRecord.ExportTonsUSD.coal > 50000.0)
 	{
 		Objective_UpdateRequirementToTarget("energy", 1);
-		success[22] = 1;
+		success[23] = 1;
 	}
 	if(_statRecord.ExportTonsRUB.eletric + _statRecord.ExportTonsUSD.eletric > 1000000.0)
 	{
 		Objective_UpdateRequirementToTarget("energy", 2);
-		success[23] = 1;
+		success[24] = 1;
 	}
-	if(success[21] + success[22] + success[23] ? 3)
+	if(success[22] + success[23] + success[24] ? 3)
 	{
 		Objective_SetComplete("energy");
 		completed[5] = 1;
@@ -271,29 +279,29 @@ defineFunction(RunYearlyReport, void)
 	if(_statRecord.ExportTonsRUB.alcohol + _statRecord.ExportTonsUSD.alcohol > 25000.0)
 	{
 		Objective_UpdateRequirementToTarget("agriculture", 0);
-		success[22] = 1;
+		success[25] = 1;
 	}
 	if(_statRecord.ExportTonsRUB.food + _statRecord.ExportTonsUSD.food > 25000.0)
 	{
 		Objective_UpdateRequirementToTarget("agriculture", 1);
-		success[23] = 1;
+		success[26] = 1;
 	}
 	if(_statRecord.ExportTonsRUB.meat + _statRecord.ExportTonsUSD.meat > 25000.0)
 	{
 		Objective_UpdateRequirementToTarget("agriculture", 2);
-		success[24] = 1;
+		success[27] = 1;
 	}
 	if(_statRecord.ExportTonsRUB.livestock + _statRecord.ExportTonsUSD.livestock > 50000.0)
 	{
 		Objective_UpdateRequirementToTarget("agriculture", 3);
-		success[25] = 1;
+		success[28] = 1;
 	}
 	if(_statRecord.ExportTonsRUB.plants + _statRecord.ExportTonsUSD.plants > 100000.0)
 	{
 		Objective_UpdateRequirementToTarget("agriculture", 4);
-		success[26] = 1;
+		success[29] = 1;
 	}
-	if(success[22] + success[23] + success[24] + success[25] + success[26] ? 5)
+	if(success[25] + success[26] + success[27] + success[28] + success[29] ? 5)
 	{
 		Objective_SetComplete("agriculture");
 		completed[6] = 1;
@@ -302,46 +310,46 @@ defineFunction(RunYearlyReport, void)
 	if(_statRecord.ExportTonsRUB.cement + _statRecord.ExportTonsUSD.cement > 25000.0)
 	{
 		Objective_UpdateRequirementToTarget("construction", 0);
-		success[27] = 1;
+		success[30] = 1;
 	}
 	if(_statRecord.ExportTonsRUB.gravel + _statRecord.ExportTonsUSD.gravel > 50000.0)
 	{
 		Objective_UpdateRequirementToTarget("construction", 1);
-		success[28] = 1;
+		success[31] = 1;
 	}
 	if(_statRecord.ExportTonsRUB.boards + _statRecord.ExportTonsUSD.boards > 100000.0)
 	{
 		Objective_UpdateRequirementToTarget("construction", 2);
-		success[29] = 1;
+		success[32] = 1;
 	}
 	if(_statRecord.ExportTonsRUB.bricks + _statRecord.ExportTonsUSD.bricks > 100000.0)
 	{
 		Objective_UpdateRequirementToTarget("construction", 3);
-		success[30] = 1;
+		success[33] = 1;
 	}
 	if(_statRecord.ExportTonsRUB.prefabpanels + _statRecord.ExportTonsUSD.prefabpanels > 100000.0)
 	{
 		Objective_UpdateRequirementToTarget("construction", 4);
-		success[31] = 1;
+		success[34] = 1;
 	}
 	if(_statRecord.ExportTonsRUB.rawgravel + _statRecord.ExportTonsUSD.rawgravel > 100000.0)
 	{
 		Objective_UpdateRequirementToTarget("construction", 3);
-		success[32] = 1;
+		success[35] = 1;
 	}
 	if(_statRecord.ExportTonsRUB.wood + _statRecord.ExportTonsUSD.wood > 100000.0)
 	{
 		Objective_UpdateRequirementToTarget("construction", 4);
-		success[33] = 1;
+		success[36] = 1;
 	}
-	if(success[27] + success[28] + success[29] + success[30] + success[31] + success[32] + success[33] ? 7)
+	if(success[30] + success[31] + success[32] + success[33] + success[34] + success[35] + success[36] ? 7)
 	{
 		Objective_SetComplete("construction");
-		completed[6] = 1;
+		completed[7] = 1;
 	}
 	
 	// win condition
-	if(completed[0] + completed[1] + completed[2] + completed[3] + completed[4] + completed[5] + completed[6] ? 7)
+	if(completed[0] + completed[1] + completed[2] + completed[3] + completed[4] + completed[5] + completed[6] + completed[7]? 8)
 	{
 		Window_ShowText("You win");
 	}

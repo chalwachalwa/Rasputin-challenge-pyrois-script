@@ -1,0 +1,56 @@
+Link to official Rasputin challenge:
+https://steamcommunity.com/sharedfiles/filedetails/?id=2494858865
+
+Huge thanks to THECCC, BumbaCLot, Renfield and all discord members for idea and cataloging rules.
+
+Leader board:
+- Helicopter update version:
+Illy - 2020
+Shugo - 2015 with loan - first to finish
+
+
+Version 1.0
+Rules (game version 0.8.8.20):
+Please keep in mind that scripts are experimental feature with no support from devs yet.
+
+Win condition:
+- export all resources from yearly report
+
+Rules:
+- no prefab import
+- you can export only products with full production chain made in your republic
+- you are allowed 1500 points of immigration in first year and 360 in next years ( soviet imigrant - 3p, 3rd world - 1p)
+- no tourism before 1992
+- no export to soviet after 26.12.1992
+- no vehicles purchased after 26.12.1992
+
+Rules will be evalueated mounthly for performance.
+
+Gentelman's rules: (not able yet to force with script)
+
+- map: https://steamcommunity.com/sharedfiles/filedetails/?id=2493879740
+- no terraforming of rivers - you need to build bridges
+-all settings hard
+- no mods
+- no loans
+- OPTIONAL: Shame of USSR - you can take only 1 million rubbles once
+- you cannot buy locomotives with power more than 1000kW ( you need factory and blueprints for better trains)
+- you cannot buy track layers better than skill 17 ( you need factory and blueprints for better trains)
+
+How to use this scripts?
+Use script menu from left bar.
+- Start script starts challenge.
+- Give up resets all limits.
+- Show objectives
+
+FAQ:
+- how to dispose sewer?
+
+
+
+If you manage to beat this challenge or you need psychological help, join discord https://discord.gg/PRMxK2d7
+
+Please report any issues in comments. This script is much bigger than I thought and I wasn't able to test every single case.
+
+PS
+This challenge is a joke ;)

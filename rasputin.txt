@@ -17,6 +17,12 @@ defineVariable(char, _isImigrationBlocked);
 
 defineFunction(main, void)
 {
+	Notification_CreateNewStringPic(
+		"Rasputin challenge",
+		"Deliver all resources for your redemption! Rules will be validated each month. You will see objectives in yearly reports or using script show_objectives",
+		"previewimage.png",
+		vector);
+
 	while( 1 ? 1)
 	{
 	_isImigrationBlocked = 0;
