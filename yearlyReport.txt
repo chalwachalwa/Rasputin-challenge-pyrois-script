@@ -4,6 +4,7 @@ defineArray(char[8], completed);
 defineVariable(StatRecord, _statRecord);
 defineVariable(Resources, resource);
 defineVariable(float, _aluminium);
+defineVariable(vec3, _vector);
 
 defineFunction(RunYearlyReport, void)
 {
@@ -352,6 +353,11 @@ defineFunction(RunYearlyReport, void)
 	if(completed[0] + completed[1] + completed[2] + completed[3] + completed[4] + completed[5] + completed[6] + completed[7]? 8)
 	{
 		Window_ShowText("You win");
+		Notification_CreateNewStringPic(
+		"You win!",
+		"Congratulations! You beat the curse! Contact with author to get into leader board and show your year of end and screenshots.",
+		"images/win.png",
+		_vector);
 	}
 	
 	Script_Sleep(20.0);
